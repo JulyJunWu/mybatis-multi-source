@@ -1,0 +1,22 @@
+server:
+  port: 5566
+datasource:
+  type: com.alibaba.druid.pool.DruidDataSource
+  user:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/tt?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+    type: com.alibaba.druid.pool.DruidDataSource
+  student:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/ws?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+    username: root
+    password: admin
+mybatis:
+  user:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath:mapper/user/*.xml
+  student:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    mapper-locations: classpath:mapper/student/*.xml
