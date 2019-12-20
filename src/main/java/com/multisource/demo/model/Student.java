@@ -2,6 +2,10 @@ package com.multisource.demo.model;
 
 import lombok.Data;
 
+/**
+ * @author JunWu
+ * student model
+ */
 @Data
 public class Student {
 

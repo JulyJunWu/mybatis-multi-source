@@ -17,6 +17,7 @@ mybatis:
   user:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     mapper-locations: classpath:mapper/user/*.xml
+    type-alias-packages: com.multisource.demo.model
   student:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     mapper-locations: classpath:mapper/student/*.xml

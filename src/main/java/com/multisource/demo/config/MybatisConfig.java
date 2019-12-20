@@ -36,9 +36,12 @@ public class MybatisConfig {
         @Value("${mybatis.user.log-impl:}")
         private String logImpl;
 
+        @Value("${mybatis.user.type-alias-packages:}")
+        private String typeAliasPackages;
+
         @Bean(name = "sqlSessionFactoryUser")
         public SqlSessionFactory sqlSessionFactoryTt() throws Exception {
-            return buildSqlSessionFactory(logImpl, userDataSource, mapperLocations);
+            return buildSqlSessionFactory(logImpl, userDataSource, mapperLocations, typeAliasPackages);
         }
 
         @Bean(name = "sqlSessionTemplateUser")
@@ -63,7 +66,7 @@ public class MybatisConfig {
 
         @Bean(name = "sqlSessionFactoryStudent")
         public SqlSessionFactory sqlSessionFactoryStudent() throws Exception {
-            return buildSqlSessionFactory(logImpl, studentDataSource, mapperLocations);
+            return buildSqlSessionFactory(logImpl, studentDataSource, mapperLocations, null);
         }
 
         @Bean(name = "sqlSessionTemplateStudent")
@@ -81,7 +84,7 @@ public class MybatisConfig {
      * @return
      * @throws Exception
      */
-    private static SqlSessionFactory buildSqlSessionFactory(String logImpl, DataSource dataSource, String mapperLocations) throws Exception {
+    private static SqlSessionFactory buildSqlSessionFactory(String logImpl, DataSource dataSource, String mapperLocations, String typeAliasPackages) throws Exception {
         Class<? extends Log> logClass = null;
         if (!StringUtils.isEmpty(logImpl)) {
             //提前设置MS的日志类型
@@ -90,6 +93,9 @@ public class MybatisConfig {
         }
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource);
+        if (!StringUtils.isEmpty(typeAliasPackages)) {
+            factoryBean.setTypeAliasesPackage(typeAliasPackages);
+        }
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
         SqlSessionFactory sqlSessionFactory = factoryBean.getObject();
         if (logClass != null) {
